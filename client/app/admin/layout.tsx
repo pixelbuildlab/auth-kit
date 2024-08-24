@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Next Admin Page',
-  description: 'Authentication demo in Next.js 14',
+  title: ' Auth-Kit Admin Protected Page',
+  description:
+    'Auth-Kit a full fledge authentication demo for multiple Services',
 }
 
 export default function AdminLayout({

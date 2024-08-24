@@ -2,8 +2,8 @@ import React from 'react'
 import { Metadata } from 'next'
 import { cn } from '@/lib/utils'
 import { Inter as FontSans } from 'next/font/google'
-import Header from '@/components/ui/custom/Header'
-import { ThemeProvider } from '@/components/Theme/theme-provider'
+import { ThemeProvider } from '@/components/Providers'
+import { DynamicHeader } from '@/components/ui/custom'
 import './globals.css'
 
 const inter = FontSans({ subsets: ['latin'] })
@@ -24,24 +24,14 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head />
-      <body
-        className={cn(
-          'min-h-screen bg-background antialiased h-full',
-          inter.className
-        )}
-      >
+      <body className={cn(inter.className)}>
         <ThemeProvider
           attribute='class'
           defaultTheme='dark'
           enableSystem
           disableTransitionOnChange
         >
-          <div className='flex justify-center align-middle relative'>
-            <div className=' flex m-8 flex-col gap-5 w-2/12'>
-              <Header />
-              {children}
-            </div>
-          </div>
+          {children}
         </ThemeProvider>
       </body>
     </html>

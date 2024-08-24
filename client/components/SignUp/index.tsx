@@ -4,9 +4,13 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { useFormStatus } from 'react-dom'
 import Link from 'next/link'
-import FormFooter from '../ui/custom/FormFooter'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
-//To use formStatus component that using it must be outside of the component rendering form
+import FormFooter from '../ui/custom/FormFooter'
+import firebase from 'firebase/compat/app'
+import { firebaseApp } from '@/lib/firebase'
+import { AUTH_KIT_ROUTES } from '@/constants'
+
 const SubmitForm = () => {
   const { pending } = useFormStatus()
   return (
@@ -21,20 +25,28 @@ const SubmitForm = () => {
         type='button'
         disabled={pending}
       >
-        <Link href='/login'>Login</Link>
+        <Link href={AUTH_KIT_ROUTES.login}>Login</Link>
       </Button>
     </>
   )
 }
 const SignUp = () => {
-  const formAction = (formData: FormData) => {
-    const email = formData.get('email')
-    const password = formData.get('password')
+  const auth = getAuth(firebaseApp)
+
+  const formAction = async (formData: FormData) => {
+    const email: string = formData.get('email') as string
+    const password = formData.get('password') as string
+    if (!email || !password) {
+      return
+    }
+    await createUserWithEmailAndPassword(auth, email, password).catch((error) =>
+      console.log(error)
+    )
   }
 
   return (
     <>
-      <h5>Please Sign up to continue</h5>
+      <h5 className='mb-2'>Please Sign up to continue</h5>
       <form
         className='flex flex-col gap-4'
         action={formAction}

@@ -4,11 +4,7 @@ import SignUp from '@/components/SignUp'
 type Props = {}
 
 function RegisterPage({}: Props) {
-  return (
-    <>
-      <SignUp />
-    </>
-  )
+  return <SignUp />
 }
 
 export default RegisterPage

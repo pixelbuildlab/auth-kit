@@ -5,6 +5,7 @@ import { Button } from '../ui/button'
 import { useFormStatus } from 'react-dom'
 import Link from 'next/link'
 import FormFooter from '../ui/custom/FormFooter'
+import { AUTH_KIT_ROUTES } from '@/constants'
 
 //To use formStatus component that using it must be outside of the component rendering form
 const SubmitForm = () => {
@@ -21,7 +22,7 @@ const SubmitForm = () => {
         type='button'
         disabled={pending}
       >
-        <Link href='/register'> Sign up</Link>
+        <Link href={AUTH_KIT_ROUTES.register}> Sign up</Link>
       </Button>
     </>
   )
@@ -34,7 +35,7 @@ const Login = () => {
 
   return (
     <>
-      <h5>Please login to continue</h5>
+      <h5 className='mb-2'>Please login to continue</h5>
       <form
         className='flex flex-col gap-4'
         action={formAction}

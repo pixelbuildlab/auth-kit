@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import { AUTH_KIT_ROUTES } from '@/constants'
 import Link from 'next/link'
 import React from 'react'
 
@@ -11,14 +12,14 @@ function AdminDashboard({}: Props) {
         Only allowed if logged in{' '}
         <Link
           className='bg-white text-black mt-4 p-4 text-center'
-          href='/login'
+          href={AUTH_KIT_ROUTES.login}
         >
           Logout
         </Link>
       </div>
       <Button>Chad cn Ui</Button>
       <div>
-        <Link href='/'>Home</Link>
+        <Link href={AUTH_KIT_ROUTES.home}>Home</Link>
       </div>
     </div>
   )
