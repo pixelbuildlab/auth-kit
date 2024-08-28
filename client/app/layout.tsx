@@ -3,8 +3,8 @@ import { Metadata } from 'next'
 import { cn } from '@/lib/utils'
 import { Inter as FontSans } from 'next/font/google'
 import { ThemeProvider } from '@/components/Providers'
-import { DynamicHeader } from '@/components/ui/custom'
 import './globals.css'
+import { Toaster } from 'react-hot-toast'
 
 const inter = FontSans({ subsets: ['latin'] })
 
@@ -31,6 +31,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Toaster toastOptions={{ position: 'top-right' }} />
           {children}
         </ThemeProvider>
       </body>

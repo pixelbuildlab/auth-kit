@@ -1,30 +1,15 @@
 'use client'
-import { useTheme } from 'next-themes'
 import React from 'react'
-import { Button } from '../button'
+import { NoSSThemeManager } from './DynamicHeader'
 
 function Header() {
-  const { theme, setTheme } = useTheme()
-
-  const currentState =
-    theme === 'dark'
-      ? { next: 'light', text: 'Lights' }
-      : { next: 'dark', text: 'Go Dark' }
-
   return (
     <div className='flex justify-center mb-5 flex-col gap-2 text-center'>
       <h2 className='text-center text-xl'>Auth-Kit</h2>
-      <Button
-        onClick={() => {
-          setTheme(currentState.next)
-        }}
-        className=''
-      >
-        {currentState.text}
-      </Button>
+      <NoSSThemeManager />
       <hr />
     </div>
   )
 }
 
-export default Header
+export { Header }
