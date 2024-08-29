@@ -2,11 +2,11 @@
 
 ## Overview
 
-Auth-Kit is a comprehensive authentication solution developed using React.js for the frontend and Nest.js for the backend. ChadCN UI is utilized for a modern and responsive user interface. This project aims to create a secure and scalable authentication system, covering user registration, login, and session management.
+Auth-Kit is a comprehensive authentication solution developed using Next.js 14 for the frontend and Nest.js for the backend. ChadCN UI is utilized for a modern and responsive user interface. This project aims to create a secure and scalable authentication system, covering user registration, login, and session management.
 
 ## Tech Stack
 
-- **Frontend:** React.js, ChadCN UI
+- **Frontend:** Next.js 14, React.js, ChadCN UI
 - **Backend:** Nest.js, Express.js
 - **Authentication Services:** Auth0, Firebase Authentication, Okta, Passport.js, Supabase Auth
 
@@ -14,7 +14,7 @@ Auth-Kit is a comprehensive authentication solution developed using React.js for
 
 ### Folder Structure
 
-- **client/**: Contains the frontend code built with React.js.
+- **client/**: Contains the frontend code built with Next.js 14.
 - **server/**: Contains the backend code built with Nest.js.
 
 ### Frontend Setup
@@ -32,8 +32,9 @@ Auth-Kit is a comprehensive authentication solution developed using React.js for
    ```
 
 3. **Start the Development Server:**
+
    ```bash
-   npm start
+   npm run dev
    ```
 
 ### Backend Setup
@@ -51,6 +52,7 @@ Auth-Kit is a comprehensive authentication solution developed using React.js for
    ```
 
 3. **Start the Development Server:**
+
    ```bash
    npm run start:dev
    ```
@@ -66,9 +68,9 @@ Auth-Kit is a comprehensive authentication solution developed using React.js for
 
 - **Pages:**
 
-  - `src/pages/signup.js` - User registration page.
-  - `src/pages/login.js` - User login page.
-  - `src/pages/dashboard.js` - Protected dashboard page.
+  - `app/register` - User registration page.
+  - `app/login` - User login page.
+  - `app/admin` - Protected dashboard page.
 
 - **Components:** Utilize ChadCN UI for building user interface components.
 
