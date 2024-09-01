@@ -1,16 +1,15 @@
 import React from 'react'
 import toast from 'react-hot-toast'
-import { getAuth, updateProfile } from 'firebase/auth'
-import { firebaseApp } from '@/lib/firebase'
+import { updateProfile } from 'firebase/auth'
+import { firebaseAppAuth } from '@/lib/firebase'
 import { FIREBASE_AUTH_ERRORS } from '@/constants/firebaseErrors'
 
 type Props = { username: string; profile?: string }
 
 function updateFirebaseUser({ username, profile }: Props) {
-  const auth = getAuth(firebaseApp)
-  if (!auth.currentUser) return
+  if (!firebaseAppAuth.currentUser) return
 
-  const createUserPromise = updateProfile(auth.currentUser, {
+  const createUserPromise = updateProfile(firebaseAppAuth.currentUser, {
     displayName: username,
     ...(profile && { photoURL: profile }),
   })

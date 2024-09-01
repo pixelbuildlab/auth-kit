@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { NoSSThemeManager } from './DynamicHeader'
+import { NoSSThemeManager } from './DynamicTMButton'
 
 function Header() {
   return (

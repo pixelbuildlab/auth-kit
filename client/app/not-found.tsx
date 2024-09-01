@@ -22,18 +22,22 @@ function NotFound({}: Props) {
           src='/not-found.png'
           alt='Error 404'
           width={480}
-          height={480}
+          height={0}
+          style={{ width: 'auto' }}
+          priority={true}
         />
         <b>Unable to locate requested Resource</b>
         <Button>
           <Link
-            href={AUTH_KIT_ROUTES.home}
+            href={AUTH_KIT_ROUTES.onboarding}
             className='w-full'
           >
             Home
           </Link>
         </Button>
-        <NoSSThemeManager />
+        <div>
+          <NoSSThemeManager />
+        </div>
       </div>
     </ThemeProvider>
   )

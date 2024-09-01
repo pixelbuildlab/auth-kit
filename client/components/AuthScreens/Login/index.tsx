@@ -2,10 +2,10 @@
 import React from 'react'
 import { redirect } from 'next/navigation'
 import toast from 'react-hot-toast'
-import FormFooter from '../ui/custom/FormFooter'
+import FormFooter from '../../ui/custom/FormFooter'
 import { AUTH_KIT_ROUTES } from '@/constants'
 import { loginFirebaseUser } from '@/hooks/firebase'
-import { Form, FormSubmission, TextInput } from '../ui/FormUi'
+import { Form, FormSubmission, TextInput } from '../../ui/FormUi'
 
 type RegisterData = {
   email: string
@@ -50,7 +50,6 @@ const Login = () => {
           secondaryLabel='Sign Up'
         />
       </Form>
-
       <FormFooter />
     </>
   )
