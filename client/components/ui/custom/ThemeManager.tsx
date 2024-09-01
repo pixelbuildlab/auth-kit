@@ -15,7 +15,7 @@ function ThemeManager() {
       onClick={() => {
         setTheme(currentState.next)
       }}
-      className=''
+      className='w-full'
     >
       {currentState.text}
     </Button>

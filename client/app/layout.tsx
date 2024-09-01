@@ -5,6 +5,7 @@ import { Inter as FontSans } from 'next/font/google'
 import { ThemeProvider } from '@/components/Providers'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
+import FirebaseAuthProvider from '@/components/Providers/FirebaseAuthProvider'
 
 const inter = FontSans({ subsets: ['latin'] })
 
@@ -24,15 +25,19 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head />
-      <body className={cn(inter.className)}>
+      <body className={cn(inter.className, 'select-none')}>
         <ThemeProvider
           attribute='class'
           defaultTheme='dark'
           enableSystem
           disableTransitionOnChange
         >
-          <Toaster toastOptions={{ position: 'top-right' }} />
-          {children}
+          <FirebaseAuthProvider>
+            <>
+              <Toaster toastOptions={{ position: 'top-right' }} />
+              {children}
+            </>
+          </FirebaseAuthProvider>
         </ThemeProvider>
       </body>
     </html>

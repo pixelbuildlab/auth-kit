@@ -1,22 +1,19 @@
 import React from 'react'
 import toast from 'react-hot-toast'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { sendPasswordResetEmail } from 'firebase/auth'
 import { FIREBASE_AUTH_ERRORS } from '@/constants/firebaseErrors'
 import { firebaseAppAuth } from '@/lib/firebase'
 
-type Props = { email: string; password: string }
+type Props = { email: string }
 
-function createFirebaseUser({ email, password }: Props) {
-  const createUserPromise = createUserWithEmailAndPassword(
-    firebaseAppAuth,
-    email,
-    password
-  )
+function resetFirebasePassword({ email }: Props) {
+  const createUserPromise = sendPasswordResetEmail(firebaseAppAuth, email)
 
   const userCredential = toast
     .promise(createUserPromise, {
-      loading: 'Creating user with firebase auth',
-      success: (data) => `User successfully created for ${data.user.email}`,
+      loading: 'Sending password reset email to ' + email,
+      success: (data) =>
+        `Password reset email sent. Check your email to follow instructions`,
       error: (err) =>
         FIREBASE_AUTH_ERRORS[err.code as keyof typeof FIREBASE_AUTH_ERRORS],
     })
@@ -29,4 +26,4 @@ function createFirebaseUser({ email, password }: Props) {
   return userCredential
 }
 
-export { createFirebaseUser }
+export { resetFirebasePassword }

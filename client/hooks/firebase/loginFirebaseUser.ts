@@ -1,14 +1,17 @@
 import React from 'react'
 import toast from 'react-hot-toast'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-import { firebaseApp } from '@/lib/firebase'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { firebaseAppAuth } from '@/lib/firebase'
 import { FIREBASE_AUTH_ERRORS } from '@/constants/firebaseErrors'
 
 type Props = { email: string; password: string }
 
 function loginFirebaseUser({ email, password }: Props) {
-  const auth = getAuth(firebaseApp)
-  const createUserPromise = signInWithEmailAndPassword(auth, email, password)
+  const createUserPromise = signInWithEmailAndPassword(
+    firebaseAppAuth,
+    email,
+    password
+  )
 
   const userCredential = toast
     .promise(createUserPromise, {
