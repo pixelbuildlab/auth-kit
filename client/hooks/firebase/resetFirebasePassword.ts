@@ -7,15 +7,14 @@ import { firebaseAppAuth } from '@/lib/firebase'
 type Props = { email: string }
 
 function resetFirebasePassword({ email }: Props) {
-  const createUserPromise = sendPasswordResetEmail(firebaseAppAuth, email)
+  const sendResetMain = sendPasswordResetEmail(firebaseAppAuth, email)
 
   const userCredential = toast
-    .promise(createUserPromise, {
+    .promise(sendResetMain, {
       loading: 'Sending password reset email to ' + email,
       success: (data) =>
         `Password reset email sent. Check your email to follow instructions`,
-      error: (err) =>
-        FIREBASE_AUTH_ERRORS[err.code as keyof typeof FIREBASE_AUTH_ERRORS],
+      error: (err) => err.message,
     })
     .catch((error) => {
       throw new Error(error)
