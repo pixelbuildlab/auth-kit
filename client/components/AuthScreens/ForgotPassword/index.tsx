@@ -1,11 +1,10 @@
 'use client'
 import React from 'react'
-import { redirect } from 'next/navigation'
 import toast from 'react-hot-toast'
 import FormFooter from '../../ui/custom/FormFooter'
 import { AUTH_KIT_ROUTES } from '@/constants'
 import { Form, FormSubmission, TextInput } from '../../ui/FormUi'
-import { resetFirebasePassword } from '@/hooks/firebase'
+import { fetchExistingAccount, resetFirebasePassword } from '@/hooks/firebase'
 
 type ForgotPasswordData = {
   email: string
@@ -19,8 +18,11 @@ const ForgotPassword = () => {
       return
     }
     try {
-      const response = await resetFirebasePassword({ email })
-      redirect(AUTH_KIT_ROUTES.login)
+      const res = await fetchExistingAccount({ email })
+      console.log(res, 'res')
+      if (res.length) {
+        await resetFirebasePassword({ email })
+      }
     } catch (error) {
       console.log(error)
     }

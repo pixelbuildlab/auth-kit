@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/Providers'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
 import FirebaseAuthProvider from '@/components/Providers/FirebaseAuthProvider'
+import TanstackQueryProvider from '@/components/Providers/TanstackQueryProvider'
 
 const inter = FontSans({ subsets: ['latin'] })
 
@@ -32,12 +33,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <FirebaseAuthProvider>
-            <>
-              <Toaster toastOptions={{ position: 'top-right' }} />
-              {children}
-            </>
-          </FirebaseAuthProvider>
+          <TanstackQueryProvider>
+            <FirebaseAuthProvider>
+              <>
+                <Toaster toastOptions={{ position: 'top-right' }} />
+                {children}
+              </>
+            </FirebaseAuthProvider>
+          </TanstackQueryProvider>
         </ThemeProvider>
       </body>
     </html>
