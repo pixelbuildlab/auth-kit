@@ -19,6 +19,7 @@ function FirebaseVerify() {
 
   if (isLoading) return <LoadingSpinner />
   if (error) return <>EROOR {JSON.stringify(error)}</>
+  if (!code) return <>Unable to process request this time.</>
   const up = async () => {
     await updateUserPassword({ code, password: 'qwerty12345' })
   }
