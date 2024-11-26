@@ -40,10 +40,10 @@ export function Main() {
     const option = screen.options.find((opt) => opt.id === id)
 
     if (screenOption?.optionId === id) {
-      if (id !== '1') {
-        toast.error('Currently not implemented')
-        return
-      }
+      // if (id !== '1') {
+      //   toast.error('Currently not implemented')
+      //   return
+      // }
       if (storeScreen !== 'main') {
         const link = screen.mainRoute + option?.route
         setRoute(link)

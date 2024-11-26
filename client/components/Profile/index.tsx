@@ -7,22 +7,24 @@ import { Button } from '../ui/button'
 import { signOut } from 'firebase/auth'
 import { firebaseAppAuth } from '@/lib/firebase'
 import { useRouter } from 'next/navigation'
+import { useUserAuthContext } from '@/hooks/common/useUserAuthContext'
 
 type Props = {}
 
 function UserProfile({}: Props) {
-  const { firebaseUser } = useFirebaseContext()
+  const { user, logout } = useUserAuthContext()
   const router = useRouter()
   const handleLogout = () => {
     signOut(firebaseAppAuth)
-    router.push(AUTH_KIT_ROUTES.login)
+    logout()
+    // router.push(AUTH_KIT_ROUTES.login)
   }
   return (
     <div className='flex min-h-screen flex-col items-center justify-between p-24'>
       <div className='flex justify-between flex-col'>
         Only allowed if logged in <br />
         PROFILE
-        {JSON.stringify(firebaseUser)}
+        {JSON.stringify(user)}
       </div>
       <Button onClick={handleLogout}>Logout</Button>
       <div>

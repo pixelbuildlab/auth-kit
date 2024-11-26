@@ -19,6 +19,8 @@ const firebase_app =
   getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]
 
 const auth = getAuth(firebase_app)
+const currentUser = auth.currentUser
 
 export { auth as firebaseAppAuth }
 export { firebase_app as firebaseApp }
+export { currentUser as firebaseCurrentUser }

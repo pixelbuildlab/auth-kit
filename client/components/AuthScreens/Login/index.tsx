@@ -6,6 +6,9 @@ import FormFooter from '../../ui/custom/FormFooter'
 import { AUTH_KIT_ROUTES } from '@/constants'
 import { loginFirebaseUser } from '@/hooks/firebase'
 import { Form, FormSubmission, TextInput } from '../../ui/FormUi'
+import { firebaseCurrentUser } from '@/lib/firebase'
+import { AuthUser } from '@/types/AuthTypes'
+import { useUserAuthContext } from '@/hooks/common/useUserAuthContext'
 
 type RegisterData = {
   email: string
@@ -13,6 +16,8 @@ type RegisterData = {
 }
 
 const Login = () => {
+  const { login } = useUserAuthContext()
+
   const formAction = async (formData: RegisterData) => {
     const { email, password } = formData
     if (!email) {
@@ -24,7 +29,18 @@ const Login = () => {
     }
     try {
       const response = await loginFirebaseUser({ email, password })
-      redirect(AUTH_KIT_ROUTES.login)
+
+      if (response) {
+        const authUser: AuthUser = {
+          email: response.user.email || '',
+          id: response.user.uid,
+          provider: response.providerId + '',
+          profilePicture: response.user.photoURL || '',
+          username: response.user.displayName + '',
+        }
+
+        login(authUser)
+      }
     } catch (error) {
       console.log(error)
     }
