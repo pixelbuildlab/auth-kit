@@ -135,3 +135,5 @@ export const AUTH_FINAL_OPTIONS = [
     route: '/forgot-password',
   },
 ]
+
+export const AUTH_KIT_KEY = 'authKitKey'

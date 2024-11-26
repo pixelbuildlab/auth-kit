@@ -5,7 +5,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 type Props = { children: React.ReactNode }
 const queryClient = new QueryClient()
-function TanstackQueryProvider({ children }: Props) {
+
+export function TanstackQueryProvider({ children }: Props) {
   return (
     <QueryClientProvider client={queryClient}>
       {children}
@@ -13,5 +14,3 @@ function TanstackQueryProvider({ children }: Props) {
     </QueryClientProvider>
   )
 }
-
-export default TanstackQueryProvider

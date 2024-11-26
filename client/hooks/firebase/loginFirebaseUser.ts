@@ -6,7 +6,7 @@ import { FIREBASE_AUTH_ERRORS } from '@/constants/firebaseErrors'
 
 type Props = { email: string; password: string }
 
-function loginFirebaseUser({ email, password }: Props) {
+async function loginFirebaseUser({ email, password }: Props) {
   const createUserPromise = signInWithEmailAndPassword(
     firebaseAppAuth,
     email,
@@ -27,7 +27,7 @@ function loginFirebaseUser({ email, password }: Props) {
       return data
     })
 
-  return userCredential
+  return await userCredential
 }
 
 export { loginFirebaseUser }
