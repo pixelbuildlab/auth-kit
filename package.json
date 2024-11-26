@@ -6,7 +6,10 @@
     "setup": "cd client/ && npm i && cd ../server/ && npm i",
     "dev:client": "npm run dev --prefix client",
     "dev:server": "npm run start:dev --prefix server",
-    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\""
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "npm run build --prefix client",
+    "build:server": "npm run build --prefix server"
   },
   "keywords": [],
   "author": "",
