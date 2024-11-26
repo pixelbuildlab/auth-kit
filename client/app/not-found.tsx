@@ -27,14 +27,9 @@ function NotFound({}: Props) {
           priority={true}
         />
         <b>Unable to locate requested Resource</b>
-        <Button>
-          <Link
-            href={AUTH_KIT_ROUTES.onboarding}
-            className='w-full'
-          >
-            Home
-          </Link>
-        </Button>
+        <Link href={AUTH_KIT_ROUTES.onboarding}>
+          <Button>Home</Button>
+        </Link>
         <div>
           <NoSSThemeManager />
         </div>

@@ -32,17 +32,17 @@ const SignUp = () => {
     }
 
     try {
-      await createFirebaseUser({ email, password })
+      const response = await createFirebaseUser({ email, password })
       await updateFirebaseUser({ username })
       // redirect(AUTH_KIT_ROUTES.login, RedirectType.push)
 
-      if (firebaseCurrentUser) {
+      if (response) {
         const authUser: AuthUser = {
-          email: firebaseCurrentUser.email || '',
-          id: firebaseCurrentUser.uid,
-          provider: firebaseCurrentUser.providerId,
-          profilePicture: firebaseCurrentUser.photoURL || '',
-          username: firebaseCurrentUser.displayName + '',
+          email: response.user.email || '',
+          id: response.user.uid,
+          provider: response.providerId + '',
+          profilePicture: response.user.photoURL || '',
+          username: response.user.displayName + '',
         }
 
         login(authUser)

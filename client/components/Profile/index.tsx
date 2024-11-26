@@ -12,10 +12,11 @@ import { useUserAuthContext } from '@/hooks/common/useUserAuthContext'
 type Props = {}
 
 function UserProfile({}: Props) {
-  const { user } = useUserAuthContext()
+  const { user, logout } = useUserAuthContext()
   const router = useRouter()
   const handleLogout = () => {
     signOut(firebaseAppAuth)
+    logout()
     // router.push(AUTH_KIT_ROUTES.login)
   }
   return (

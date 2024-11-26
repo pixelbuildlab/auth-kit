@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { AuthUser, UserAuthContextValue } from '@/types/AuthTypes'
 import { UserAuthContext } from '@/context/userAuthContext'
-import { AUTH_KIT_ROUTES } from '@/constants'
+import { AUTH_KIT_KEY, AUTH_KIT_ROUTES } from '@/constants'
+import { LoadingSpinner } from '@/components/ui/custom/Loader'
 
 type Props = { children: React.ReactNode }
 
@@ -18,7 +19,7 @@ export function AuthProvider({ children }: Props) {
   useEffect(() => {
     const isProtected = PROTECTED_ROUTES.includes(pathname)
 
-    const storageUser = localStorage.getItem('user')
+    const storageUser = localStorage.getItem(AUTH_KIT_KEY)
     const isAuthenticated = !!storageUser
 
     if (isProtected && !isAuthenticated) {
@@ -35,14 +36,14 @@ export function AuthProvider({ children }: Props) {
 
   const login = (userData: AuthUser) => {
     setUser(userData)
-    localStorage.setItem('user', JSON.stringify(userData))
+    localStorage.setItem(AUTH_KIT_KEY, JSON.stringify(userData))
     router.replace(AUTH_KIT_ROUTES.home)
   }
 
   const logout = () => {
     setUser(null)
-    localStorage.removeItem('user')
-    router.push(AUTH_KIT_ROUTES.login)
+    localStorage.removeItem(AUTH_KIT_KEY)
+    router.push(AUTH_KIT_ROUTES.onboarding)
   }
 
   const value: UserAuthContextValue = {
@@ -53,7 +54,7 @@ export function AuthProvider({ children }: Props) {
   }
 
   if (loading) {
-    return <div>Loading...</div>
+    return <LoadingSpinner />
   }
 
   return (
