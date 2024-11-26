@@ -1,12 +1,14 @@
 import React from 'react'
 import { Metadata } from 'next'
 import { cn } from '@/lib/utils'
-import { Inter as FontSans } from 'next/font/google'
-import { ThemeProvider } from '@/components/Providers'
-import './globals.css'
 import { Toaster } from 'react-hot-toast'
-import FirebaseAuthProvider from '@/components/Providers/FirebaseAuthProvider'
-import TanstackQueryProvider from '@/components/Providers/TanstackQueryProvider'
+import { Inter as FontSans } from 'next/font/google'
+import './globals.css'
+import {
+  TanstackQueryProvider,
+  ThemeProvider,
+  UserAuthProvider,
+} from '@/components/Providers'
 
 const inter = FontSans({ subsets: ['latin'] })
 
@@ -34,12 +36,12 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TanstackQueryProvider>
-            <FirebaseAuthProvider>
+            <UserAuthProvider>
               <>
                 <Toaster toastOptions={{ position: 'top-right' }} />
                 {children}
               </>
-            </FirebaseAuthProvider>
+            </UserAuthProvider>
           </TanstackQueryProvider>
         </ThemeProvider>
       </body>

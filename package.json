@@ -4,11 +4,14 @@
   "description": "auth setup using react.js and nest.js",
   "scripts": {
     "setup": "cd client/ && npm i && cd ../server/ && npm i",
-    "start:client": "npm run dev --prefix client",
-    "start:server": "npm run start:dev --prefix server",
-    "start": "concurrently \"npm run start:client\" \"npm run start:server\""
+    "dev:client": "npm run dev --prefix client",
+    "dev:server": "npm run start:dev --prefix server",
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\""
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
 }

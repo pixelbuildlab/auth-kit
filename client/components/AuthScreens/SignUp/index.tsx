@@ -1,11 +1,13 @@
 'use client'
 import React from 'react'
-import { redirect, RedirectType } from 'next/navigation'
 import toast from 'react-hot-toast'
 import FormFooter from '../../ui/custom/FormFooter'
 import { AUTH_KIT_ROUTES } from '@/constants'
 import { createFirebaseUser, updateFirebaseUser } from '@/hooks/firebase'
 import { Form, FormSubmission, TextInput } from '../../ui/FormUi'
+import { firebaseCurrentUser } from '@/lib/firebase'
+import { useUserAuthContext } from '@/hooks/common/useUserAuthContext'
+import { AuthUser } from '@/types/AuthTypes'
 
 type RegisterData = {
   email: string
@@ -14,6 +16,7 @@ type RegisterData = {
 }
 
 const SignUp = () => {
+  const { login } = useUserAuthContext()
   const formAction = async (formData: RegisterData) => {
     const { email, password, username } = formData
 
@@ -31,7 +34,19 @@ const SignUp = () => {
     try {
       await createFirebaseUser({ email, password })
       await updateFirebaseUser({ username })
-      redirect(AUTH_KIT_ROUTES.login, RedirectType.push)
+      // redirect(AUTH_KIT_ROUTES.login, RedirectType.push)
+
+      if (firebaseCurrentUser) {
+        const authUser: AuthUser = {
+          email: firebaseCurrentUser.email || '',
+          id: firebaseCurrentUser.uid,
+          provider: firebaseCurrentUser.providerId,
+          profilePicture: firebaseCurrentUser.photoURL || '',
+          username: firebaseCurrentUser.displayName + '',
+        }
+
+        login(authUser)
+      }
     } catch (error) {
       console.log(error)
     }
