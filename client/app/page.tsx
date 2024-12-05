@@ -16,7 +16,6 @@ export default function Home() {
               Try
             </Link>
             <a href='/api/auth/login'>Auth0 Login</a>
-
             {/* <a
               href='#features'
               className='hover:text-primary'
