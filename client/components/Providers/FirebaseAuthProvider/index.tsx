@@ -1,71 +1,73 @@
-// 'use client'
-// import React from 'react'
-// import {
-//   FirebaseContext,
-//   FirebaseContextValue,
-// } from '@/context/firebaseContext'
+'use client'
+import React, { useEffect, useState } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
+import {
+  FirebaseAuthUser,
+  FirebaseUserAuthContextValue,
+} from '@/types/AuthTypes'
+import { AUTH_KIT_KEY, AUTH_KIT_ROUTES } from '@/constants'
+import { LoadingSpinner } from '@/components/ui/custom/Loader'
+import { FirebAseUserAuthContext } from '@/context/firebaseContext'
+import { useUserAuthContext } from '@/hooks/common/useUserAuthContext'
 
-// type Props = { children: React.ReactNode }
+type Props = { children: React.ReactNode }
 
-// function FirebaseAuthProvider({ children }: Props) {
-//   // const [user, setUser] = React.useState<User | null>(null)
-//   // const [loading, setLoading] = React.useState(true)
-//   // const router = useRouter()
-//   // const pathname = usePathname()
+const PROTECTED_ROUTE = 'profile'
 
-//   // React.useEffect(() => {
-//   //   if (UNPROTECTED_ROUTES.includes(pathname)) {
-//   //     alert('some')
-//   //     setLoading(false)
-//   //     return
-//   //   }
-//   //   const storageUser = localStorage.getItem('user')
+export function FirebaseAuthProvider({ children }: Props) {
+  const [user, setUser] = useState<FirebaseAuthUser | null>(null)
+  const [loading, setLoading] = useState(true)
+  const { toggleAuthenticationType, handleAuthType } = useUserAuthContext()
 
-//   //   if (storageUser) {
-//   //     setUser(JSON.parse(storageUser))
+  const router = useRouter()
+  const pathname = usePathname()
 
-//   //     router.replace(AUTH_KIT_ROUTES.home)
-//   //     return
-//   //   } else {
-//   //     router.push(AUTH_KIT_ROUTES.login)
-//   //   }
+  useEffect(() => {
+    const isProtected = pathname?.split('/').includes(PROTECTED_ROUTE)
 
-//   //   const unsubscribe = onAuthStateChanged(firebaseAppAuth, (authUser) => {
-//   //     if (authUser) {
-//   //       setUser(authUser)
-//   //       localStorage.setItem('user', JSON.stringify(authUser))
-//   //     } else {
-//   //       localStorage.removeItem('user')
-//   //       router.push(AUTH_KIT_ROUTES.login)
-//   //     }
-//   //     setLoading(false)
-//   //   })
+    const storageUser = localStorage.getItem(AUTH_KIT_KEY)
+    const isAuthenticated = !!storageUser
 
-//   //   return () => unsubscribe()
-//   // }, [router])
+    if (isProtected && !isAuthenticated) {
+      router.push(AUTH_KIT_ROUTES.onboarding)
+      return
+    }
 
-//   const firebaseContextValue: FirebaseContextValue = {
-//     firebaseUser: null,
-//   }
+    if (isAuthenticated) {
+      setUser(JSON.parse(storageUser))
+    }
 
-//   // if (loading && !user) {
-//   //   return <LoadingSpinner />
-//   // }
+    setLoading(false)
+  }, [pathname, router])
 
-//   return (
-//     <FirebaseContext.Provider value={firebaseContextValue}>
-//       {children}
-//     </FirebaseContext.Provider>
-//   )
-// }
+  const login = (userData: FirebaseAuthUser) => {
+    setUser(userData)
+    localStorage.setItem(AUTH_KIT_KEY, JSON.stringify(userData))
+    router.replace('/client/firebase/profile')
+    handleAuthType('firebase')
+    toggleAuthenticationType()
+  }
 
-// export default FirebaseAuthProvider
-import React from 'react'
+  const logout = () => {
+    setUser(null)
+    localStorage.removeItem(AUTH_KIT_KEY)
+    router.push(AUTH_KIT_ROUTES.onboarding)
+  }
 
-type Props = {}
+  const value: FirebaseUserAuthContextValue = {
+    user,
+    isAuthenticated: !!user,
+    login,
+    logout,
+  }
 
-function FirebaseAuthProvider({}: Props) {
-  return <div>FirebaseAuthProvider</div>
+  if (loading) {
+    return <LoadingSpinner />
+  }
+
+  return (
+    <FirebAseUserAuthContext.Provider value={value}>
+      {children}
+    </FirebAseUserAuthContext.Provider>
+  )
 }
-
-export default FirebaseAuthProvider
