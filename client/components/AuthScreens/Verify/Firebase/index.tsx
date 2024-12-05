@@ -9,6 +9,7 @@ import { LoadingSpinner } from '@/components/ui/custom/Loader'
 import { Form, FormSubmission, TextInput } from '@/components/ui/FormUi'
 import { AUTH_KIT_ROUTES } from '@/constants'
 import { CenteredContent } from '@/components/ui/custom'
+import { toast } from 'sonner'
 
 type ResetPassword = {
   password: string
@@ -25,23 +26,32 @@ function FirebaseVerify() {
     isLoading,
   } = useVerifyPasswordCode(code)
 
-  const { mutateAsync: updateUserPassword } = useConfirmPasswordReset()
+  const { mutateAsync: updateUserPassword, isPending: isUpdatingPassword } =
+    useConfirmPasswordReset()
 
   if (isLoading) return <LoadingSpinner />
-  if (error)
-    return (
-      <CenteredContent>
-        <>An error occurred while processing your request</>
-      </CenteredContent>
-    )
-  if (!code)
-    return (
-      <CenteredContent>
-        <>Unable to process request this time.</>
-      </CenteredContent>
-    )
-  const formAction = async () => {
-    await updateUserPassword({ code, password: 'qwerty12345' })
+  if (error) return <>An error occurred while processing request</>
+  if (!code) return <>Unable to process request this time.</>
+  const formAction = async (formValues: ResetPassword) => {
+    const { confirmPassword, password } = formValues
+    if (!confirmPassword || !password) {
+      toast.error('Please enter password and confirm password')
+
+      return
+    }
+    if (confirmPassword !== password) {
+      toast.error('Confirm Password does not match')
+      return
+    }
+    if (password.length < 6) {
+      toast.error('Password should be greater than six characters')
+      return
+    }
+    try {
+      await updateUserPassword({ code, password })
+    } catch (error) {
+      toast.error('Unable to update password')
+    }
   }
   return (
     <>
@@ -49,108 +59,23 @@ function FirebaseVerify() {
       <Form<ResetPassword> onSave={formAction}>
         <TextInput
           name='password'
+          type='password'
           label='Password'
         />
         <TextInput
           name='confirmPassword'
+          type='password'
           label='Confirm Password'
         />
         <FormSubmission
           linkPath={AUTH_KIT_ROUTES.login}
-          primaryLabel='Sign Up'
-          secondaryLabel='Login'
+          primaryLabel='Reset'
+          disableExtraButtons={true}
         />
       </Form>
-      {/* <FormFooter /> */}
     </>
   )
 }
-// 'use client'
-// import React from 'react'
-// import toast from 'react-hot-toast'
-// import FormFooter from '../../ui/custom/FormFooter'
-// import { AUTH_KIT_ROUTES } from '@/constants'
-// import { createFirebaseUser, updateFirebaseUser } from '@/hooks/firebase'
-// import { Form, FormSubmission, TextInput } from '../../ui/FormUi'
-// import { firebaseCurrentUser } from '@/lib/firebase'
-// import { useUserAuthContext } from '@/hooks/common/useUserAuthContext'
-// import { AuthUser } from '@/types/AuthTypes'
-
-// type RegisterData = {
-//   email: string
-//   password: string
-//   username: string
-// }
-
-// const SignUp = () => {
-//   const { login } = useUserAuthContext()
-//   const formAction = async (formData: RegisterData) => {
-//     const { email, password, username } = formData
-
-//     if (!email) {
-//       toast.error('Email Required')
-//       return
-//     } else if (!password) {
-//       toast.error('Password Required')
-//       return
-//     } else if (!username) {
-//       toast.error('Username Required')
-//       return
-//     }
-
-//     try {
-//       const response = await createFirebaseUser({ email, password })
-//       await updateFirebaseUser({ username })
-//       // redirect(AUTH_KIT_ROUTES.login, RedirectType.push)
-
-//       if (response) {
-//         const authUser: AuthUser = {
-//           email: response.user.email || '',
-//           id: response.user.uid,
-//           provider: response.providerId + '',
-//           profilePicture: response.user.photoURL || '',
-//           username: response.user.displayName + '',
-//         }
-
-//         login(authUser)
-//       }
-//     } catch (error) {
-//       console.log(error)
-//     }
-//   }
-
-//   return (
-//     <>
-//       <h5 className='mb-2'>Please sign up to continue</h5>
-//       <Form<RegisterData> onSave={formAction}>
-//         <TextInput
-//           name='username'
-//           label='Username'
-//           placeholder='user007'
-//         />
-//         <TextInput
-//           name='email'
-//           label='Email'
-//           placeholder='example@email.com'
-//         />
-//         <TextInput
-//           name='password'
-//           label='Password'
-//           type='password'
-//         />
-//         <FormSubmission
-//           linkPath={AUTH_KIT_ROUTES.login}
-//           primaryLabel='Sign Up'
-//           secondaryLabel='Login'
-//         />
-//       </Form>
-
-//       <FormFooter />
-//     </>
-//   )
-// }
-
-// export default SignUp
 
 export default function FirebaseWrapped() {
   return (

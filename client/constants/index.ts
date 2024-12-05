@@ -137,3 +137,7 @@ export const AUTH_FINAL_OPTIONS = [
 ]
 
 export const AUTH_KIT_KEY = 'authKitKey'
+
+export const PROFILE_LINK = {
+  firebase: '/client/firebase/profile',
+}

@@ -5,9 +5,8 @@ import FormFooter from '../../ui/custom/FormFooter'
 import { AUTH_KIT_ROUTES } from '@/constants'
 import { createFirebaseUser, updateFirebaseUser } from '@/hooks/firebase'
 import { Form, FormSubmission, TextInput } from '../../ui/FormUi'
-import { firebaseCurrentUser } from '@/lib/firebase'
-import { useUserAuthContext } from '@/hooks/common/useUserAuthContext'
-import { AuthUser } from '@/types/AuthTypes'
+import { useFirebaseContext } from '@/hooks/common/useFirebaseContext'
+import { FirebaseAuthUser } from '@/types/AuthTypes'
 
 type RegisterData = {
   email: string
@@ -16,7 +15,7 @@ type RegisterData = {
 }
 
 const SignUp = () => {
-  const { login } = useUserAuthContext()
+  const { login } = useFirebaseContext()
   const formAction = async (formData: RegisterData) => {
     const { email, password, username } = formData
 
@@ -30,14 +29,17 @@ const SignUp = () => {
       toast.error('Username Required')
       return
     }
-
+    if (password.length < 6) {
+      toast.error('Password should be greater than six characters')
+      return
+    }
     try {
       const response = await createFirebaseUser({ email, password })
       await updateFirebaseUser({ username })
       // redirect(AUTH_KIT_ROUTES.login, RedirectType.push)
 
       if (response) {
-        const authUser: AuthUser = {
+        const authUser: FirebaseAuthUser = {
           email: response.user.email || '',
           id: response.user.uid,
           provider: response.providerId + '',

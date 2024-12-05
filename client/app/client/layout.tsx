@@ -1,3 +1,4 @@
+import { FirebaseAuthProvider } from '@/components/Providers'
 import { Header } from '@/components/ui/custom'
 import React from 'react'
 
@@ -8,8 +9,10 @@ function layout({ children }: Props) {
     <div className='min-h-screen flex items-center justify-center'>
       <div className='flex flex-col items-center justify-center w-96 h-full overflow-hidden'>
         <div className='flex flex-col w-full p-4'>
-          <Header />
-          {children}
+          <FirebaseAuthProvider>
+            <Header />
+            {children}
+          </FirebaseAuthProvider>
         </div>
       </div>
     </div>

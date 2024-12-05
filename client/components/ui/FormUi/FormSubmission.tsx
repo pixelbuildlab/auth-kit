@@ -9,7 +9,8 @@ type Keys = keyof typeof AUTH_KIT_ROUTES
 
 type FormSubmissionProps = {
   primaryLabel: string
-  secondaryLabel: string
+  secondaryLabel?: string
+  disableExtraButtons?: boolean
   lastButtonLabel?: string
   linkPath: (typeof AUTH_KIT_ROUTES)[Keys]
   lastLink?: (typeof AUTH_KIT_ROUTES)[Keys]
@@ -21,6 +22,7 @@ export function FormSubmission({
   lastButtonLabel = 'Forgot Password',
   lastLink = '/forgot-password',
   linkPath,
+  disableExtraButtons = false,
 }: FormSubmissionProps) {
   const { pending } = useFormStatus()
   const pathname = usePathname()
@@ -37,28 +39,32 @@ export function FormSubmission({
       >
         {pending ? 'Loading' : primaryLabel}
       </Button>
-      <Button
-        type='button'
-        disabled={pending}
-      >
-        <Link
-          href={route + linkPath}
-          className='w-full'
-        >
-          {secondaryLabel}
-        </Link>
-      </Button>
-      <Button
-        type='button'
-        disabled={pending}
-      >
-        <Link
-          href={route + lastLink}
-          className='w-full'
-        >
-          {lastButtonLabel}
-        </Link>
-      </Button>
+      {!disableExtraButtons && (
+        <>
+          <Button
+            type='button'
+            disabled={pending}
+          >
+            <Link
+              href={route + linkPath}
+              className='w-full'
+            >
+              {secondaryLabel}
+            </Link>
+          </Button>
+          <Button
+            type='button'
+            disabled={pending}
+          >
+            <Link
+              href={route + lastLink}
+              className='w-full'
+            >
+              {lastButtonLabel}
+            </Link>
+          </Button>
+        </>
+      )}
     </>
   )
 }

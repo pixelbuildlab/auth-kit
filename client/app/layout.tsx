@@ -1,7 +1,7 @@
 import React from 'react'
 import { Metadata } from 'next'
 import { cn } from '@/lib/utils'
-import { Toaster } from 'react-hot-toast'
+import { Toaster as HotToaster } from 'react-hot-toast'
 import { Inter as FontSans } from 'next/font/google'
 import './globals.css'
 import {
@@ -9,6 +9,8 @@ import {
   ThemeProvider,
   UserAuthProvider,
 } from '@/components/Providers'
+import { Toaster } from 'sonner'
+import { UserProvider } from '@auth0/nextjs-auth0/client'
 
 const inter = FontSans({ subsets: ['latin'] })
 
@@ -28,21 +30,25 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head />
-      <body className={cn(inter.className, 'select-none')}>
+      <body
+        className={cn(inter.className, 'select-none')}
+        suppressHydrationWarning={true}
+      >
         <ThemeProvider
           attribute='class'
           defaultTheme='dark'
           enableSystem
           disableTransitionOnChange
         >
-          <TanstackQueryProvider>
+          <UserProvider>
             <UserAuthProvider>
-              <>
-                <Toaster toastOptions={{ position: 'top-right' }} />
+              <TanstackQueryProvider>
+                <Toaster position='top-right' />
+                <HotToaster toastOptions={{ position: 'top-right' }} />
                 {children}
-              </>
+              </TanstackQueryProvider>
             </UserAuthProvider>
-          </TanstackQueryProvider>
+          </UserProvider>
         </ThemeProvider>
       </body>
     </html>

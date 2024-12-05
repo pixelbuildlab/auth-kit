@@ -1,4 +1,4 @@
-export type AuthUser = {
+export type FirebaseAuthUser = {
   id: string
   email: string
   username?: string
@@ -6,9 +6,19 @@ export type AuthUser = {
   provider: string
 }
 
-export type UserAuthContextValue = {
-  user: AuthUser | null
+export type FirebaseUserAuthContextValue = {
+  user: FirebaseAuthUser | null
   isAuthenticated: boolean
-  login: (userData: AuthUser) => void
+  login: (userData: FirebaseAuthUser) => void
   logout: () => void
+}
+
+//global user auth context types
+// we only need authentication status and login type
+
+export type GlobalUserAuthContextValue = {
+  handleAuthType: (authType: string) => void
+  toggleAuthenticationType: () => void
+  isAuthenticated: boolean
+  authType: string
 }
