@@ -1,12 +1,6 @@
-import { User } from 'firebase/auth'
 import React from 'react'
+import { FirebaseUserAuthContextValue } from '@/types/AuthTypes'
 
-export type FirebaseUser = User | null
-
-export type FirebaseContextValue = {
-  firebaseUser: FirebaseUser
-}
-
-export const FirebaseContext = React.createContext<
-  FirebaseContextValue | undefined
+export const FirebAseUserAuthContext = React.createContext<
+  FirebaseUserAuthContextValue | undefined
 >(undefined)

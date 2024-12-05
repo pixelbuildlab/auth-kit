@@ -1,14 +1,12 @@
 'use client'
 import React from 'react'
-import { redirect } from 'next/navigation'
 import toast from 'react-hot-toast'
 import FormFooter from '../../ui/custom/FormFooter'
 import { AUTH_KIT_ROUTES } from '@/constants'
 import { loginFirebaseUser } from '@/hooks/firebase'
 import { Form, FormSubmission, TextInput } from '../../ui/FormUi'
-import { firebaseCurrentUser } from '@/lib/firebase'
-import { AuthUser } from '@/types/AuthTypes'
-import { useUserAuthContext } from '@/hooks/common/useUserAuthContext'
+import { FirebaseAuthUser } from '@/types/AuthTypes'
+import { useFirebaseContext } from '@/hooks/common/useFirebaseContext'
 
 type RegisterData = {
   email: string
@@ -16,7 +14,7 @@ type RegisterData = {
 }
 
 const Login = () => {
-  const { login } = useUserAuthContext()
+  const { login } = useFirebaseContext()
 
   const formAction = async (formData: RegisterData) => {
     const { email, password } = formData
@@ -31,7 +29,7 @@ const Login = () => {
       const response = await loginFirebaseUser({ email, password })
 
       if (response) {
-        const authUser: AuthUser = {
+        const authUser: FirebaseAuthUser = {
           email: response.user.email || '',
           id: response.user.uid,
           provider: response.providerId + '',

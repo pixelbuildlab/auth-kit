@@ -1,8 +1,8 @@
-import { FirebaseContext } from '@/context/firebaseContext'
+import { FirebAseUserAuthContext } from '@/context/firebaseContext'
 import React from 'react'
 
 export const useFirebaseContext = () => {
-  const context = React.useContext(FirebaseContext)
+  const context = React.useContext(FirebAseUserAuthContext)
   if (context === undefined) {
     throw new Error('useFirebaseContext must be used within a FirebaseContext')
   }

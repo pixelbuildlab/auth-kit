@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { Button } from '../button'
 import { useTheme } from 'next-themes'
@@ -8,7 +9,7 @@ function ThemeManager() {
   const currentState =
     theme === 'dark'
       ? { next: 'light', text: 'Lights' }
-      : { next: 'dark', text: 'Go Dark' }
+      : { next: 'dark', text: 'Darken' }
 
   return (
     <Button
