@@ -10,7 +10,7 @@ export const FirebaseProfile = () => {
   const { user, logout } = useFirebaseContext()
 
   if (!user) {
-    console.log('Firebase profile page: No user found in context')
+    console.error('Firebase profile page: No user found in context')
     return <NoUserProfile />
   }
 

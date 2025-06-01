@@ -27,7 +27,7 @@ export const PRICING_DATA = {
         ],
       },
       subscription: {
-        price: 3,
+        price: 5,
         unit: '/month per module',
         features: [
           {
@@ -74,7 +74,7 @@ export const PRICING_DATA = {
         ],
       },
       subscription: {
-        price: 15,
+        price: 20,
         unit: '/month',
         features: [
           {

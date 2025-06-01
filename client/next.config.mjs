@@ -8,6 +8,10 @@ const nextConfig = {
     messagingSenderId: process.env.MESSAGING_SENDER_ID,
     appId: process.env.APP_ID,
   },
+  serverRuntimeConfig: {
+    stripePublicKey: process.env.STRIPE_PUBLISHABLE_KEY,
+    stripeSecretKey: process.env.STRIPE_SECRET_KEY,
+  },
 }
 
 export default nextConfig

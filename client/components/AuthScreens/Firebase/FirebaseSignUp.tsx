@@ -50,7 +50,7 @@ export const FirebaseSignUp = () => {
         login(authUser)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
