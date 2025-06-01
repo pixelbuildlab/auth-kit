@@ -8,7 +8,6 @@ export function fetchExistingAccount({ email }: { email: string }) {
     .promise(fetchAccount, {
       loading: 'Checking for existing user account',
       success: (data) => {
-        console.log(data, 'in fn')
         if (data.length) return 'User account found'
         else throw new Error('Unable to get user account')
       },

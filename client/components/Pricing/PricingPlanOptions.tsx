@@ -67,7 +67,7 @@ export const PricingPlanOptions = ({
               className={`w-full transition-all ${
                 selectedPlan === plan.id
                   ? 'bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white'
-                  : 'bg-transparent border-2 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white'
+                  : 'bg-transparent border-2 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-blue-50'
               }`}
               variant={selectedPlan === plan.id ? 'default' : 'outline'}
             >

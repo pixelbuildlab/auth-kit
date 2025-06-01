@@ -8,7 +8,7 @@ async function ProfilePage() {
   const user = session?.user || null
 
   if (!user) {
-    console.log('Next.js Auth0 profile page: No user found in session')
+    console.error('Next.js Auth0 profile page: No user found in session')
     return <NoUserProfile />
   }
 

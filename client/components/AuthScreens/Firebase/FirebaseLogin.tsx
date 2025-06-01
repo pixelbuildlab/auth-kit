@@ -40,7 +40,7 @@ export const FirebaseLogin = () => {
         login(authUser)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

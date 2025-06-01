@@ -64,6 +64,5 @@ function FinalScreenComp({ isLoggedIn }: Props) {
 
 export function FinalScreen() {
   const { user } = useFirebaseContext()
-  console.log(user, 'FinalScreen user')
   return <FinalScreenComp isLoggedIn={!!user} />
 }

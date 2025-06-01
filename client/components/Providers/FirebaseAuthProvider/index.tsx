@@ -23,7 +23,6 @@ export function FirebaseAuthProvider({ children }: Props) {
   const pathname = usePathname()
 
   useEffect(() => {
-    console.log('first render of FirebaseAuthProvider')
     const isProtected = pathname?.split('/').includes(PROTECTED_ROUTE)
 
     const storageUser = localStorage.getItem(AUTH_KIT_KEY)

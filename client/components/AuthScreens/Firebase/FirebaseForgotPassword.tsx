@@ -19,12 +19,11 @@ export const FirebaseForgotPassword = () => {
     }
     try {
       const res = await fetchExistingAccount({ email })
-      console.log(res, 'res')
       if (res.length) {
         await resetFirebasePassword({ email })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
