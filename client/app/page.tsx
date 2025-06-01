@@ -15,8 +15,6 @@ export default function Home() {
             >
               Try Auth-Kit
             </Link>
-            {/* <a href='/api/auth/login'>Auth0 Login</a> */}
-
             {/* <a
               href='#features'
               className='hover:text-primary'
