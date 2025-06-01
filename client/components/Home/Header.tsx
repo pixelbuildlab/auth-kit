@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { NoSSThemeManager } from '../ui/custom'
+import { Button } from '../ui/button'
 
 export const Header = () => {
   return (
@@ -20,6 +21,12 @@ export const Header = () => {
           >
             Pricing
           </Link>
+          <form
+            action='/api/checkout_sessions'
+            method='POST'
+          >
+            <Button type='submit'>Stripe Demo</Button>
+          </form>
 
           {/* <a
               href='#features'

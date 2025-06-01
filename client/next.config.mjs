@@ -9,7 +9,7 @@ const nextConfig = {
     appId: process.env.APP_ID,
   },
   serverRuntimeConfig: {
-    stripePublicKey: process.env.STRIPE_PUBLISHABLE_KEY,
+    stripePublicKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
     stripeSecretKey: process.env.STRIPE_SECRET_KEY,
   },
 }
