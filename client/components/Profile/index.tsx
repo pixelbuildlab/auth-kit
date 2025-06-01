@@ -2,22 +2,20 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { signOut } from 'firebase/auth'
 import { Button } from '../ui/button'
-import { firebaseAppAuth } from '@/lib/firebase'
-import { useFirebaseContext } from '@/hooks/common/useFirebaseContext'
 import { AUTH_KIT_ROUTES } from '@/constants'
+import type { FirebaseAuthUser } from '@/types/AuthTypes'
+import type { Claims } from '@auth0/nextjs-auth0'
 
-type Props = {}
+type Props = {
+  user: FirebaseAuthUser | Claims | null
+  logout?: () => void
+  profileType?: 'Firebase' | 'Auth0' | 'Custom'
+}
 
-const UserProfile: React.FC<Props> = () => {
-  const { user, logout } = useFirebaseContext()
-  const router = useRouter()
-
+const UserProfile: React.FC<Props> = ({ logout, user, profileType }) => {
   const handleLogout = () => {
-    signOut(firebaseAppAuth)
-    logout()
+    logout && logout()
     // Uncomment the below line to redirect after logout
     // router.push(AUTH_KIT_ROUTES.login)
   }
@@ -25,7 +23,9 @@ const UserProfile: React.FC<Props> = () => {
   return (
     <div className='min-h-screen flex flex-col items-center py-10 px-6'>
       <div className=' shadow-lg rounded-lg p-8 max-w-md w-full text-center'>
-        <h1 className='text-2xl font-bold  mb-4'>Welcome to Your Profile</h1>
+        <h1 className='text-2xl font-bold  mb-4'>
+          Welcome to Your <>{profileType}</> Profile
+        </h1>
         <p className='mb-6'>
           {user
             ? `Logged in as ${user.email}`
@@ -52,4 +52,4 @@ const UserProfile: React.FC<Props> = () => {
   )
 }
 
-export default UserProfile
+export { UserProfile }

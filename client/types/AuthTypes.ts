@@ -16,9 +16,10 @@ export type FirebaseUserAuthContextValue = {
 //global user auth context types
 // we only need authentication status and login type
 
+export type AuthTypes = 'firebase' | 'auth0' | 'custom' | null
 export type GlobalUserAuthContextValue = {
-  handleAuthType: (authType: string) => void
+  handleAuthType: (authType: AuthTypes) => void
   toggleAuthenticationType: () => void
   isAuthenticated: boolean
-  authType: string
+  authType: AuthTypes
 }

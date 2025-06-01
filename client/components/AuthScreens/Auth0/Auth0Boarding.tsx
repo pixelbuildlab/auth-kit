@@ -19,6 +19,8 @@ export function Auth0Boarding() {
     <div className='flex gap-3 flex-col w-full justify-center items-center'>
       <a
         href='/api/auth/login'
+        // todo implement profile page
+        // href='/api/auth/login?returnTo=/client/auth0/profile'
         className='w-full h-full flex items-center justify-center'
       >
         <Tile
