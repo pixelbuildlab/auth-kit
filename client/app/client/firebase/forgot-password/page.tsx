@@ -1,8 +1,8 @@
 import React from 'react'
-import ForgotPassword from '@/components/AuthScreens/ForgotPassword'
+import { FirebaseForgotPassword } from '@/components/AuthScreens/Firebase'
 
 function ForgotPasswordPage() {
-  return <ForgotPassword />
+  return <FirebaseForgotPassword />
 }
 
 export default ForgotPasswordPage

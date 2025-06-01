@@ -10,7 +10,7 @@ import {
   UserAuthProvider,
 } from '@/components/Providers'
 import { Toaster } from 'sonner'
-import { UserProvider } from '@auth0/nextjs-auth0/client'
+// import { UserProvider } from '@auth0/nextjs-auth0/client'
 
 const inter = FontSans({ subsets: ['latin'] })
 
@@ -40,15 +40,15 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <UserProvider>
-            <UserAuthProvider>
-              <TanstackQueryProvider>
-                <Toaster position='top-right' />
-                <HotToaster toastOptions={{ position: 'top-right' }} />
-                {children}
-              </TanstackQueryProvider>
-            </UserAuthProvider>
-          </UserProvider>
+          {/* <UserProvider> */}
+          <UserAuthProvider>
+            <TanstackQueryProvider>
+              <Toaster position='top-right' />
+              <HotToaster toastOptions={{ position: 'top-right' }} />
+              {children}
+            </TanstackQueryProvider>
+          </UserAuthProvider>
+          {/* </UserProvider> */}
         </ThemeProvider>
       </body>
     </html>

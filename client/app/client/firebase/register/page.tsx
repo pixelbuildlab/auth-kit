@@ -1,10 +1,8 @@
 import React from 'react'
-import SignUp from '@/components/AuthScreens/SignUp'
+import { FirebaseSignUp } from '@/components/AuthScreens/Firebase'
 
-type Props = {}
-
-function RegisterPage({}: Props) {
-  return <SignUp />
+function RegisterPage() {
+  return <FirebaseSignUp />
 }
 
 export default RegisterPage

@@ -3,30 +3,40 @@ import React from 'react'
 import toast from 'react-hot-toast'
 import FormFooter from '../../ui/custom/FormFooter'
 import { AUTH_KIT_ROUTES } from '@/constants'
-import { loginFirebaseUser } from '@/hooks/firebase'
+import { createFirebaseUser, updateFirebaseUser } from '@/hooks/firebase'
 import { Form, FormSubmission, TextInput } from '../../ui/FormUi'
-import { FirebaseAuthUser } from '@/types/AuthTypes'
 import { useFirebaseContext } from '@/hooks/common/useFirebaseContext'
+import { FirebaseAuthUser } from '@/types/AuthTypes'
 
 type RegisterData = {
   email: string
   password: string
+  username: string
 }
 
-const Login = () => {
+export const FirebaseSignUp = () => {
   const { login } = useFirebaseContext()
-
   const formAction = async (formData: RegisterData) => {
-    const { email, password } = formData
+    const { email, password, username } = formData
+
     if (!email) {
       toast.error('Email Required')
       return
     } else if (!password) {
       toast.error('Password Required')
       return
+    } else if (!username) {
+      toast.error('Username Required')
+      return
+    }
+    if (password.length < 6) {
+      toast.error('Password should be greater than six characters')
+      return
     }
     try {
-      const response = await loginFirebaseUser({ email, password })
+      const response = await createFirebaseUser({ email, password })
+      await updateFirebaseUser({ username })
+      // redirect(AUTH_KIT_ROUTES.login, RedirectType.push)
 
       if (response) {
         const authUser: FirebaseAuthUser = {
@@ -46,8 +56,13 @@ const Login = () => {
 
   return (
     <>
-      <h5 className='mb-2'>Please login to continue</h5>
+      <h5 className='mb-2'>Please sign up to continue</h5>
       <Form<RegisterData> onSave={formAction}>
+        <TextInput
+          name='username'
+          label='Username'
+          placeholder='user007'
+        />
         <TextInput
           name='email'
           label='Email'
@@ -59,14 +74,13 @@ const Login = () => {
           type='password'
         />
         <FormSubmission
-          linkPath={AUTH_KIT_ROUTES.register}
-          primaryLabel='Login'
-          secondaryLabel='Sign Up'
+          linkPath={AUTH_KIT_ROUTES.login}
+          primaryLabel='Sign Up'
+          secondaryLabel='Login'
         />
       </Form>
+
       <FormFooter />
     </>
   )
 }
-
-export default Login
