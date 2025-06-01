@@ -1,10 +1,8 @@
 import React from 'react'
-import UserProfile from '@/components/Profile'
+import { FirebaseProfile } from '@/components/AuthScreens/Firebase'
 
-type Props = {}
-
-function Profile({}: Props) {
-  return <UserProfile />
+function Profile() {
+  return <FirebaseProfile />
 }
 
 export default Profile

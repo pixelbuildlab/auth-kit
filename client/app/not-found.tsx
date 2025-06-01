@@ -26,7 +26,7 @@ function NotFound({}: Props) {
           style={{ width: 'auto' }}
           priority={true}
         />
-        <b>Unable to locate requested Resource</b>
+        <b>Unable to locate requested resource</b>
         <Link href={AUTH_KIT_ROUTES.onboarding}>
           <Button>Home</Button>
         </Link>

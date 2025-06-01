@@ -13,10 +13,8 @@ export default function Home() {
               href='/onboarding'
               className='hover:text-primary'
             >
-              Try
+              Try Auth-Kit
             </Link>
-            <a href='/api/auth/login'>12Login</a>
-
             {/* <a
               href='#features'
               className='hover:text-primary'
@@ -41,7 +39,7 @@ export default function Home() {
             >
               Contact
             </a> */}
-            <AuthStateFullLink />
+            {/* <AuthStateFullLink /> */}
             <div className='ml-2'>
               <NoSSThemeManager />
             </div>
