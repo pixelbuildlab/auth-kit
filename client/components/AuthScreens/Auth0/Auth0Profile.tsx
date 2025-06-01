@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { useRouter } from 'next/navigation'
-import { UserProfile } from '@/components/Profile'
+import { UserProfile } from '@/components/Profile/UserProfile'
 import type { Claims } from '@auth0/nextjs-auth0'
 
 type Props = { user: Claims }

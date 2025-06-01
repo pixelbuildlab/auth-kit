@@ -5,10 +5,13 @@ import { Tile } from '../ui/custom'
 import { Button } from '../ui/button'
 import { AUTH_FINAL_OPTIONS, AUTH_KIT_ROUTES } from '@/constants'
 import { useAuthStore } from '@/store'
+import { useFirebaseContext } from '@/hooks/common/useFirebaseContext'
 
-type Props = {}
+type Props = {
+  isLoggedIn: boolean
+}
 
-export function FinalScreen({}: Props) {
+function FinalScreenComp({ isLoggedIn }: Props) {
   const router = useRouter()
   const pathname = usePathname()
 
@@ -20,7 +23,6 @@ export function FinalScreen({}: Props) {
   const setFinalScreenOptions = useAuthStore((store) => store.setFinalSelection)
 
   const handleTileClick = (id: string) => {
-    const opt = AUTH_FINAL_OPTIONS.find((opt) => opt.id === id)
     if (id == selectedOption) {
       const opt = AUTH_FINAL_OPTIONS.find((opt) => opt.id === id)
       router.replace(currentPath + opt?.route || '/')
@@ -34,9 +36,18 @@ export function FinalScreen({}: Props) {
     router.replace(AUTH_KIT_ROUTES.onboarding)
   }
 
+  const filteredTiles = React.useMemo(() => {
+    return AUTH_FINAL_OPTIONS.filter((tile) => {
+      if (tile.route === '/profile') {
+        return isLoggedIn
+      }
+      return true
+    })
+  }, [isLoggedIn])
+
   return (
     <div className='flex gap-3 flex-col w-full justify-center items-center'>
-      {AUTH_FINAL_OPTIONS.map((option) => (
+      {filteredTiles.map((option) => (
         <Tile
           key={option.id}
           title={option.title}
@@ -51,4 +62,8 @@ export function FinalScreen({}: Props) {
   )
 }
 
-export default FinalScreen
+export function FinalScreen() {
+  const { user } = useFirebaseContext()
+  console.log(user, 'FinalScreen user')
+  return <FinalScreenComp isLoggedIn={!!user} />
+}
