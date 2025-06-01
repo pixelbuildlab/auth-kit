@@ -134,6 +134,25 @@ export const AUTH_FINAL_OPTIONS = [
     description: 'Get back your account if lost',
     route: '/forgot-password',
   },
+  {
+    id: '4',
+    title: 'Profile',
+    description: 'View your profile information',
+    route: '/profile',
+  },
+]
+
+export const AUTH0_TILES = [
+  {
+    id: 'auth0',
+    title: 'Auth0',
+    description: 'Try Auth0 full flow with Next.js',
+  },
+  {
+    id: 'profile',
+    title: 'Profile',
+    description: 'View your Auth0 profile',
+  },
 ]
 
 export const AUTH_KIT_KEY = 'authKitKey'

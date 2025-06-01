@@ -6,6 +6,10 @@ export const GET = handleAuth({
     const url = new URL(req.url!)
     const returnTo = url.searchParams.get('returnTo') || '/client/auth0/profile'
 
+    //     // Behavior	How to do it
+    // Logout from app only	/api/auth/logout
+    // Logout from app + Auth0 global	/api/auth/logout?federated
+    // Force login screen on next login	/api/auth/login?prompt=login
     return handleLogin(req, res, {
       returnTo,
       authorizationParams: {

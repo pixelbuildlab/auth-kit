@@ -1,5 +1,5 @@
 import React from 'react'
-import FinalScreen from '@/components/Onboarding/FinalScreen'
+import { FinalScreen } from '@/components/Onboarding'
 
 function FirebasePage() {
   return <FinalScreen />
