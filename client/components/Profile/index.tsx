@@ -1,13 +1,13 @@
 'use client'
 
 import React from 'react'
-import { signOut } from 'firebase/auth'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { AUTH_KIT_ROUTES } from '@/constants'
+import { useRouter } from 'next/navigation'
+import { signOut } from 'firebase/auth'
 import { Button } from '../ui/button'
 import { firebaseAppAuth } from '@/lib/firebase'
 import { useFirebaseContext } from '@/hooks/common/useFirebaseContext'
+import { AUTH_KIT_ROUTES } from '@/constants'
 
 type Props = {}
 

@@ -1,9 +1,7 @@
 import React from 'react'
 import UserProfile from '@/components/Profile'
 
-type Props = {}
-
-function Profile({}: Props) {
+function Profile() {
   return <UserProfile />
 }
 

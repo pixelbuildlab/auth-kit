@@ -10,7 +10,7 @@ type ForgotPasswordData = {
   email: string
 }
 
-const ForgotPassword = () => {
+export const FirebaseForgotPassword = () => {
   const formAction = async (formData: ForgotPasswordData) => {
     const { email } = formData
     if (!email) {
@@ -49,5 +49,3 @@ const ForgotPassword = () => {
     </>
   )
 }
-
-export default ForgotPassword

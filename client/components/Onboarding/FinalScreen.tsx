@@ -1,24 +1,26 @@
 'use client'
 import React from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import { Tile } from '../ui/custom'
 import { Button } from '../ui/button'
 import { AUTH_FINAL_OPTIONS, AUTH_KIT_ROUTES } from '@/constants'
 import { useAuthStore } from '@/store'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 
 type Props = {}
 
 export function FinalScreen({}: Props) {
   const router = useRouter()
+  const pathname = usePathname()
+
   const selectedOption = useAuthStore(
     (store) => store.finalScreenSelectionOption
   )
   const restoreAuthFlow = useAuthStore((store) => store.resetAuthStore)
-  const currentPath = useAuthStore((store) => store.route) || ''
+  const currentPath = useAuthStore((store) => store.route) || pathname || ''
   const setFinalScreenOptions = useAuthStore((store) => store.setFinalSelection)
 
   const handleTileClick = (id: string) => {
+    const opt = AUTH_FINAL_OPTIONS.find((opt) => opt.id === id)
     if (id == selectedOption) {
       const opt = AUTH_FINAL_OPTIONS.find((opt) => opt.id === id)
       router.replace(currentPath + opt?.route || '/')

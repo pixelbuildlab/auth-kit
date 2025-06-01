@@ -77,10 +77,12 @@ function FirebaseVerify() {
   )
 }
 
-export default function FirebaseWrapped() {
+function FirebaseWrapped() {
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <FirebaseVerify />
     </Suspense>
   )
 }
+
+export { FirebaseWrapped as FirebaseVerify }

@@ -1,10 +1,8 @@
 import React from 'react'
-import Login from '@/components/AuthScreens/Login'
+import { FirebaseLogin } from '@/components/AuthScreens/Firebase'
 
-type Props = {}
-
-function LoginPage({}: Props) {
-  return <Login />
+function LoginPage() {
+  return <FirebaseLogin />
 }
 
 export default LoginPage
